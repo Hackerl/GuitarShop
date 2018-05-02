@@ -40,8 +40,19 @@ class admin_module:
             return ERROR.ISSUE_NOT_FOUND
 
     @staticmethod
+    def get_user_info(request):
+        userid = request.get('userid', -1)
+        user = user_model.find_by_id(userid)
+        if user:
+            return ERROR.success(user.to_json(columns = ['id', 'username', 'head', 'phone', 'email',
+                                                         'realname', 'teaching_address', 'major', 'introduction',
+                                                         'additional_server', 'level', 'create_time']))
+        else:
+            return ERROR.USER_NOT_FOUND
+
+    @staticmethod
     def get_all_issues():
-        return ERROR.success(models_format_json(issue_model.query.all(), 'issues', columns=['id', 'type', 'status']))
+        return ERROR.success(models_format_json(issue_model.query.all(), 'issues', columns=['id', 'userid', 'type', 'status']))
 
     @staticmethod
     def get_all_suggestions():

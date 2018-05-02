@@ -3,13 +3,13 @@ from flask_sqlalchemy import SQLAlchemy
 from config import config
 from flask_cors import CORS
 from flask_mail import Mail
-from flask_uploads import UploadSet, configure_uploads, ALL, patch_request_class
+from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 from flask_socketio import SocketIO
 
 db = SQLAlchemy()
 socketio = SocketIO()
 mail = Mail()
-photos = UploadSet('photos', ALL)
+photos = UploadSet('photos', IMAGES)
 
 def create_app(config_name):
     app = Flask(__name__)

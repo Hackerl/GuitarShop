@@ -63,3 +63,10 @@ def admin_del_staff_route(userid = -1):
     request_json = request.json
     msg = admin_module.del_staff(request_json)
     return jsonify(msg)
+
+@admin_handler.route('/admin_queryuser' , methods=['POST'])
+@auth_check(level = level_define['ADMIN_LEVEL'])
+def admin_query_userinfo_route(userid = -1):
+    request_json = request.json
+    msg = admin_module.get_user_info(request_json)
+    return jsonify(msg)

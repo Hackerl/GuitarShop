@@ -58,7 +58,6 @@ class user_module:
         return ERROR.success(user.to_json(columns = ['id', 'username', 'head', 'phone', 'email',
                                                      'realname', 'teaching_address', 'major', 'introduction',
                                                      'additional_server', 'level', 'create_time']))
-
     @staticmethod
     def reset_password(request):
         oldpassword = request.get('oldpassword', '')
