@@ -15,7 +15,7 @@ class admin_module:
         issue = issue_model.find_by_id(issueid)
         if issue:
             issue.set_status(status, comment)
-            user_model.send_mail_by_userid(issue.userid, "维权进度通知", "您的维权投诉进度已更新!")
+            user_model.send_mail_by_userid(issue.userid, "认证进度通知", "您的认证进度已更新!")
             return ERROR.SUCCESS
         else:
             return ERROR.ISSUE_NOT_FOUND
@@ -35,13 +35,13 @@ class admin_module:
         issueid = request.get('issueid', -1)
         issue = issue_model.find_by_id(issueid)
         if issue:
-            return ERROR.success(issue.to_json(columns = ['content']))
+            return ERROR.success(issue.to_json(columns = ['files']))
         else:
             return ERROR.ISSUE_NOT_FOUND
 
     @staticmethod
     def get_all_issues():
-        return ERROR.success(models_format_json(issue_model.query.all(), 'issues', columns=['id', 'title', 'status']))
+        return ERROR.success(models_format_json(issue_model.query.all(), 'issues', columns=['id', 'type', 'status']))
 
     @staticmethod
     def get_all_suggestions():

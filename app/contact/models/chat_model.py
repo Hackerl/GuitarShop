@@ -33,11 +33,10 @@ class chatroom_model(model_base, db.Model):
     messages = db.relationship('message_model', backref='chatroom', lazy='dynamic')
     chatroom_records = db.relationship("chatroom_record_model", backref="chatroom")
 
+    columns_to_json = ['id', 'create_time']
+
     def get_users(self):
         users = []
         for chatroom_record in self.chatroom_records:
             users.append(chatroom_record.user)
         return users
-
-    def to_json(self, columns=['id', 'create_time']):
-        return super().to_json(self, columns)

@@ -3,12 +3,11 @@ from datetime import datetime
 class model_base(object):
     """base class for to_json function"""
 
-    @staticmethod
-    def to_json(model, columns):
+    def to_json(self, columns = []):
         dict = {}
-        for column in columns:
-            if hasattr(model, column):
-                value = getattr(model, column)
+        for column in (columns if columns else self.columns_to_json):
+            if hasattr(self, column):
+                value = getattr(self, column)
                 if value is None:
                     dict[column] = ''
                 elif isinstance(value, datetime):

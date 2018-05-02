@@ -26,13 +26,12 @@ class user_model(model_base, db.Model):
     introduction = db.Column(db.String(1000), nullable=True)
     additional_server = db.Column(db.String(500), nullable=True)
 
+    columns_to_json = ['id', 'username', 'head', 'phone', 'email', 'create_time']
+
     def __init__(self, username, password, email):
         self.username = username
         self.password_hash= generate_password_hash(password)
         self.email = email
-
-    def to_json(self, columns=['id', 'username', 'head', 'phone', 'email', 'create_time']):
-        return super().to_json(self, columns)
 
     def reset_password(self, newpassword):
         self.password_hash = generate_password_hash(newpassword)

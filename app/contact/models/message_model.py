@@ -12,12 +12,11 @@ class message_model(model_base, db.Model):
     type = db.Column(db.Integer, nullable=False, default= 0)
     send_time = db.Column(db.DateTime, default=datetime.now)
 
+    columns_to_json = ['id', 'send_userid', 'recv_userid', 'content', 'type', 'send_time']
+
     def __init__(self, chatroomid, send_userid, content, type):
         self.chatroomid = chatroomid
         self.send_userid = send_userid
         self.content = content
         self.type = type
-
-    def to_json(self, columns=['id', 'send_userid', 'recv_userid', 'content', 'type', 'send_time']):
-        return super().to_json(self, columns)
 

@@ -11,10 +11,9 @@ class suggest_model(model_base, db.Model):
     content = db.Column(db.String(500), nullable=True)
     create_time = db.Column(db.DateTime, default=datetime.now)
 
+    columns_to_json = ['id', 'userid', 'title', 'content', 'create_time']
+
     def __init__(self, userid, title, content):
         self.userid = userid
         self.title = title
         self.content = content
-
-    def to_json(self, columns=['id', 'userid', 'title', 'content', 'create_time']):
-        return super().to_json(self, columns)
