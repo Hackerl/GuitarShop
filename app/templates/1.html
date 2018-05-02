@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>flask-socketio</title>
+</head>
+
+<body>
+    <h1>Hello World</h1>
+    <p>
+        <span>Only
+            <span id="count"></span>
+            left in stock! Order 123now!</span>
+    </p>
+</body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+<script src="http://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8">
+    var socket = io.connect('/chat_socket');
+    socket.on('connect_chatroom', function(result){
+        console.log(result)
+    });
+
+    socket.on('new_msg', function(result){
+        console.log(result)
+    });
+
+    function a() { socket.emit('join_chatroom', { token: "$.cookie('token')", chatid: 1 }) };
+    setTimeout(a, 3000);
+
+</script>
