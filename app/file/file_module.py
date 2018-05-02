@@ -14,7 +14,7 @@ class file_module:
             (rawname, extension) = os.path.splitext(realname)
 
             file.filename = 'picture_name'
-            filename = photos.save(file, 'picture', name='%s.%s' % (datetime.now().isoformat(), extension))
+            filename = photos.save(file, 'picture', name='%s%s' % (datetime.now().isoformat(), extension))
             file_url = photos.url(filename)
             return ERROR.success({'filename':realname, 'picture_url': parse.urlparse(file_url).path})
 
