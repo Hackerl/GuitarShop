@@ -2,7 +2,6 @@ from app import db
 from app.suggest.models.suggest_model import suggest_model
 from app.user.models.user_model import user_model
 from app.error import ERROR
-from app.json_format import models_format_json
 
 class suggest_module:
     @staticmethod
@@ -22,7 +21,7 @@ class suggest_module:
     @staticmethod
     def query_user_suggestions(userid):
         user = user_model.find_by_id(userid)
-        return ERROR.success(models_format_json(user.suggestions,  'suggestions'))
+        return ERROR.success({'suggestions': [suggestion.to_json() for suggestion in user.suggestions]})
 
     @staticmethod
     def query_suggestion(request):

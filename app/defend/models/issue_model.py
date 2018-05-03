@@ -8,7 +8,7 @@ class issue_model(model_base, db.Model):
     id = db.Column(db.Integer, nullable=False, primary_key=True, autoincrement=True)
     userid = db.Column(db.Integer, db.ForeignKey('users.id'))
     type = db.Column(db.Integer, nullable=False)
-    files = db.Column(db.String(500), nullable=False)
+    files = db.Column(db.Text, nullable=False)
     status = db.Column(db.Integer, nullable=False, default=0)
     comment = db.Column(db.String(500), nullable=False, default='')
     create_time = db.Column(db.DateTime, default=datetime.now)

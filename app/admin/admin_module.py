@@ -4,7 +4,6 @@ from app.suggest.models.suggest_model import suggest_model
 from app.admin.models.staff_email_model import staff_model
 from app.user.models.user_model import user_model
 from app.error import ERROR
-from app.json_format import models_format_json
 
 class admin_module:
     @staticmethod
@@ -52,11 +51,11 @@ class admin_module:
 
     @staticmethod
     def get_all_issues():
-        return ERROR.success(models_format_json(issue_model.query.all(), 'issues', columns=['id', 'userid', 'type', 'status']))
+        return ERROR.success({'issues': [issue.to_json(columns=['id', 'userid', 'type', 'status']) for issue in issue_model.query.all()]})
 
     @staticmethod
     def get_all_suggestions():
-        return ERROR.success(models_format_json(suggest_model.query.all(), 'suggestions', columns=['id', 'title', 'status']))
+        return ERROR.success({'suggestions': [suggest.to_json(columns=['id', 'title', 'status']) for suggest in suggest_model.query.all()]})
 
     @staticmethod
     def get_suggestion_content(request):
@@ -69,7 +68,7 @@ class admin_module:
 
     @staticmethod
     def get_staffs():
-        return ERROR.success(models_format_json(staff_model.query.all(), 'staffs', columns=['id', 'name', 'email']))
+        return ERROR.success({'staffs': [staff.to_json(columns=['id', 'name', 'email']) for staff in staff_model.query.all()]})
 
     @staticmethod
     def add_staff(request):

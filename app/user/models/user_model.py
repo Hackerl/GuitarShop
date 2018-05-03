@@ -17,14 +17,16 @@ class user_model(model_base, db.Model):
     level = db.Column(db.Integer, default=1)
     create_time = db.Column(db.DateTime, default=datetime.now)
     last_time = db.Column(db.DateTime, default=datetime.now)
+
+    teaching_address = db.Column(db.String(100), nullable=True)
+    major = db.Column(db.String(50), nullable=True)
+    introduction = db.Column(db.Text, nullable=True)
+    additional_server = db.Column(db.String(500), nullable=True)
+
+    classes = db.relationship('class_model', backref='user')
     issues = db.relationship('issue_model', backref='user')
     chatroom_records = db.relationship("chatroom_record_model", backref="user")
     suggestions = db.relationship('suggest_model', backref='user')
-
-    teaching_address = db.Column(db.String(500), nullable=True)
-    major = db.Column(db.String(50), nullable=True)
-    introduction = db.Column(db.String(1000), nullable=True)
-    additional_server = db.Column(db.String(500), nullable=True)
 
     columns_to_json = ['id', 'username', 'head', 'phone', 'email', 'create_time']
 

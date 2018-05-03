@@ -3,7 +3,6 @@ from app.contact.models.message_model import message_model
 from app.contact.models.chat_model import chatroom_model, chatroom_record_model
 from app.user.models.user_model import user_model
 from app.error import ERROR
-from app.json_format import models_format_json, get_attr_list_from_models
 from app import socketio
 
 class contact_module:
@@ -16,7 +15,7 @@ class contact_module:
         chatroom = chatroom_model.find_by_id(chatid)
 
         if chatroom:
-            chatroom_users = models_format_json(chatroom.get_users() ,'users')
+            chatroom_users = {'users': [user.to_json() for user in chatroom.get_users()]}
             for user in chatroom_users['users']:
                 if send_userid == user['id']:
                     # 更新访问时间
@@ -87,7 +86,7 @@ class contact_module:
                 # 更新访问时间
                 chatroom_record_model.visit_chatroom(userid, chatid)
 
-                msgs = models_format_json(chatroom.messages,'messages')
+                msgs = {'messages': [message.to_json() for message in chatroom.messages]}
                 for msg in msgs['messages']:
                     msg.update(chatroom_all_users.get(msg['send_userid'], {}))
                 return ERROR.success(msgs)

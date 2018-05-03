@@ -36,6 +36,9 @@ def create_app(config_name):
     from app.file.file_blueprint import file_handler as file_blueprint
     app.register_blueprint(file_blueprint)
 
+    from app.teaching.teaching_blueprint import teaching_handler as teaching_blueprint
+    app.register_blueprint(teaching_blueprint)
+
     db.init_app(app)
     socketio.init_app(app)
     mail.init_app(app)

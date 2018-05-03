@@ -2,7 +2,6 @@ from app import db
 from app.defend.models.issue_model import issue_model
 from app.user.models.user_model import user_model
 from app.error import ERROR
-from app.json_format import models_format_json
 
 class defend_module:
     @staticmethod
@@ -31,7 +30,7 @@ class defend_module:
     @staticmethod
     def query_user_issues(userid):
         user = user_model.find_by_id(userid)
-        return ERROR.success(models_format_json(user.issues,  'issues', columns=['type', 'comment', 'status']))
+        return ERROR.success({'issues': [issue.to_json(columns=['type', 'comment', 'status']) for issue in user.issues]})
 
     @staticmethod
     def del_issue(request):

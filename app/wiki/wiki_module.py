@@ -1,9 +1,8 @@
 from app import db
 from app.wiki.models.question_model import question_model
-from app.user.models.user_model import user_model
 from app.error import ERROR
-from app.json_format import models_format_json
 from sqlalchemy import or_
+
 class wiki_module:
     @staticmethod
     def create_question(request):
@@ -28,7 +27,7 @@ class wiki_module:
 
     @staticmethod
     def get_all_questions():
-        return ERROR.success(models_format_json(question_model.query.all(),  'questions'))
+        return ERROR.success({'questions': [question.to_json() for question in question_model.query.all()]})
 
     @staticmethod
     def search_question(request):
@@ -37,7 +36,7 @@ class wiki_module:
                                     question_model.title.like('%' + keyword + '%'),
                                     question_model.content.like('%' + keyword + '%')
                                     )).all()
-        return ERROR.success(models_format_json(questions, 'questions'))
+        return ERROR.success({'questions': [question.to_json() for question in questions]})
 
     @staticmethod
     def del_question(request):
