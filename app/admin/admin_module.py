@@ -3,6 +3,7 @@ from app.defend.models.issue_model import issue_model
 from app.suggest.models.suggest_model import suggest_model
 from app.admin.models.staff_email_model import staff_model
 from app.user.models.user_model import user_model
+from app.teaching.models.class_model import class_model
 from app.error import ERROR
 
 class admin_module:
@@ -92,3 +93,29 @@ class admin_module:
         else:
             return ERROR.EMAIL_NOT_FOUND
 
+    @staticmethod
+    def get_all_classes():
+        return ERROR.success({'classes': [_class.to_json(columns=['id', 'userid', 'name', 'status']) for _class in class_model.query.all()]})
+
+    @staticmethod
+    def update_class(request):
+        classid = request.get('classid', -1)
+        status = request.get('status', -1)
+        comment = request.get('comment', '')
+        _classid = class_model.find_by_id(classid)
+        if _classid:
+            _classid.set_status(status, comment)
+            user_model.send_mail_by_userid(_classid.userid, "开店审核通知", "您的审核进度已更新!")
+            return ERROR.SUCCESS
+        else:
+            return ERROR.CLASS_NOT_FOUND
+
+    @staticmethod
+    def delete_class(request):
+        classid = request.get('classid', -1)
+        _classid = class_model.find_by_id(classid)
+        if _classid:
+            db.session.delete(_classid)
+            return ERROR.SUCCESS
+        else:
+            return ERROR.CLASS_NOT_FOUND

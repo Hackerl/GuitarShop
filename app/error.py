@@ -18,6 +18,7 @@ class ERROR:
     SUGGESTION_NOT_FOUND = {'error': -14, 'msg': 'suggestion not found'}
     EMAIL_EXIST = {'error': -15, 'msg': 'email exist'}
     PASSWORD_SHORT = {'error': -16, 'msg': 'password length greater than 8'}
+    CLASS_NOT_FOUND = {'error': -17, 'msg': 'class not find'}
 
     @staticmethod
     def success(r_json):

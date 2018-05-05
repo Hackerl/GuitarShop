@@ -18,6 +18,8 @@ class class_model(model_base, db.Model):
     class_count = db.Column(db.Integer, nullable=False)
     files = db.Column(db.Text, nullable=False)
     introduction = db.Column(db.Text, nullable=True)
+    status = db.Column(db.Integer, nullable=False, default=0)
+    comment = db.Column(db.String(500), nullable=False, default='')
 
     create_time = db.Column(db.DateTime, default=datetime.now)
     update_time = db.Column(db.DateTime, default=datetime.now)
@@ -57,3 +59,8 @@ class class_model(model_base, db.Model):
         files = task_json.get('files', '{}')
         task_json['files'] = json.loads(files)
         return task_json
+
+    def set_status(self, status, comment):
+        self.status = status
+        self.comment = comment
+        self.update_time = datetime.now()

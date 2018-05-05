@@ -13,7 +13,8 @@ def defend_issue_route(userid = -1):
     return jsonify(msg)
 
 @defend_handler.route('/queryissue' , methods=['POST'])
-def defend_query_route():
+@auth_check()
+def defend_query_route(userid = -1):
     request_json = request.json
     msg = defend_module.query_issue(request_json)
     return jsonify(msg)
@@ -25,6 +26,7 @@ def defend_user_issues_route(userid = -1):
     return jsonify(msg)
 
 @defend_handler.route('/delissue' , methods=['POST'])
+@auth_check()
 def defend_del_issue_route(userid = -1):
     request_json = request.json
     request_json['userid'] = userid

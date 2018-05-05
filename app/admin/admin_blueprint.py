@@ -4,6 +4,26 @@ from app.auth import auth_check, level_define
 
 admin_handler = Blueprint('admin_handler', __name__)
 
+@admin_handler.route('/classes' , methods=['GET'])
+@auth_check(level = level_define['ADMIN_LEVEL'])
+def admin_all_classes_route(userid = -1):
+    msg = admin_module.get_all_classes()
+    return jsonify(msg)
+
+@admin_handler.route('/updateclass' , methods=['POST'])
+@auth_check(level = level_define['ADMIN_LEVEL'])
+def admin_update_class_route(userid = -1):
+    request_json = request.json
+    msg = admin_module.update_class(request_json)
+    return jsonify(msg)
+
+@admin_handler.route('/delclass' , methods=['POST'])
+@auth_check(level = level_define['ADMIN_LEVEL'])
+def admin_delete_class_route(userid = -1):
+    request_json = request.json
+    msg = admin_module.delete_class(request_json)
+    return jsonify(msg)
+
 @admin_handler.route('/issues' , methods=['GET'])
 @auth_check(level = level_define['ADMIN_LEVEL'])
 def admin_all_issues_route(userid = -1):

@@ -13,7 +13,8 @@ def teaching_class_route(userid = -1):
     return jsonify(msg)
 
 @teaching_handler.route('/queryclass' , methods=['POST'])
-def teaching_query_route():
+@auth_check()
+def teaching_query_route(userid = -1):
     request_json = request.json
     msg = teaching_module.query_class(request_json)
     return jsonify(msg)
@@ -25,6 +26,7 @@ def teaching_user_classes_route(userid = -1):
     return jsonify(msg)
 
 @teaching_handler.route('/delclass' , methods=['POST'])
+@auth_check()
 def teaching_del_class_route(userid = -1):
     request_json = request.json
     request_json['userid'] = userid
