@@ -15,7 +15,11 @@ class admin_module:
         issue = issue_model.find_by_id(issueid)
         if issue:
             issue.set_status(status, comment)
-            user_model.send_mail_by_userid(issue.userid, "认证进度通知", "您的认证进度已更新!")
+            if status == -1:
+                email_msg = '审核未通过!\n\n回复:\n    '
+            else:
+                email_msg = '审核通过!\n\n回复:\n    '
+            user_model.send_mail_by_userid(issue.userid, "认证进度通知", email_msg + comment)
             return ERROR.SUCCESS
         else:
             return ERROR.ISSUE_NOT_FOUND
@@ -105,7 +109,11 @@ class admin_module:
         _classid = class_model.find_by_id(classid)
         if _classid:
             _classid.set_status(status, comment)
-            user_model.send_mail_by_userid(_classid.userid, "开店审核通知", "您的审核进度已更新!")
+            if status == -1:
+                email_msg = '审核未通过!\n\n回复:\n    '
+            else:
+                email_msg = '审核通过!\n\n回复:\n    '
+            user_model.send_mail_by_userid(_classid.userid, "开店审核通知", email_msg + comment )
             return ERROR.SUCCESS
         else:
             return ERROR.CLASS_NOT_FOUND

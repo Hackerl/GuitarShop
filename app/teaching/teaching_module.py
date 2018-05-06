@@ -8,7 +8,7 @@ class teaching_module:
     def create_class(request):
         userid = request.get('userid', -1)
         name = request.get('name', '')
-        type = request.get('type', '')
+        type = request.get('type', -1)
         rank = request.get('rank', -1)
         teaching_type = request.get('teaching_type', '')
         teaching_address = request.get('teaching_address', '')

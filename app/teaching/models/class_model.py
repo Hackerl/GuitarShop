@@ -9,7 +9,7 @@ class class_model(model_base, db.Model):
     id = db.Column(db.Integer, nullable=False, primary_key=True, autoincrement=True)
     userid = db.Column(db.Integer, db.ForeignKey('users.id'))
     name = db.Column(db.String(100), nullable=False)
-    type = db.Column(db.String(100), nullable=False)
+    type = db.Column(db.Integer, nullable=False)
     rank = db.Column(db.Integer, nullable=False)
     teaching_type = db.Column(db.String(100), nullable=False)
     teaching_address = db.Column(db.String(100), nullable=False)
