@@ -15,11 +15,12 @@ class teaching_module:
         price = request.get('price', -1)
         discount = request.get('discount', -1)
         class_count = request.get('class_count', 16)
+        content = request.get('content', '')
         files = request.get('files', [])
         introduction = request.get('introduction', '')
 
         if name and files:
-            newclass = class_model(userid, name, type, rank, teaching_type, teaching_address, price, discount, class_count, files, introduction)
+            newclass = class_model(userid, name, type, rank, teaching_type, teaching_address, price, discount, class_count, content, files, introduction)
             db.session.add(newclass)
             db.session.commit()
 

@@ -16,6 +16,7 @@ class class_model(model_base, db.Model):
     price = db.Column(db.Float, nullable=False)
     discount = db.Column(db.Float, nullable=False)
     class_count = db.Column(db.Integer, nullable=False)
+    content = db.Column(db.String(500), nullable=False, default='')
     files = db.Column(db.Text, nullable=False)
     introduction = db.Column(db.Text, nullable=True)
     status = db.Column(db.Integer, nullable=False, default=0)
@@ -26,9 +27,9 @@ class class_model(model_base, db.Model):
 
     columns_to_json = ['id', 'userid', 'name', 'type', 'rank', 'teaching_type',
                        'teaching_address', 'price', 'discount', 'class_count',
-                       'files', 'introduction','create_time', 'update_time']
+                       'content', 'files', 'introduction','create_time', 'update_time']
 
-    def __init__(self, userid, name, type, rank, teaching_type, teaching_address, price, discount, class_count, files, introduction):
+    def __init__(self, userid, name, type, rank, teaching_type, teaching_address, price, discount, class_count, content, files, introduction):
         self.userid = userid
         self.name = name
         self.type = type
@@ -38,10 +39,11 @@ class class_model(model_base, db.Model):
         self.price = price
         self.discount = discount
         self.class_count = class_count
+        self.content = content
         self.introduction = introduction
         self.files= json.dumps(files)
 
-    def update(self, name, type, rank, teaching_type, teaching_address, price, discount, class_count, files, introduction):
+    def update(self, name, type, rank, teaching_type, teaching_address, price, discount, class_count, content, files, introduction):
         self.name = name
         self.type = type
         self.rank = rank
@@ -50,6 +52,7 @@ class class_model(model_base, db.Model):
         self.price = price
         self.discount = discount
         self.class_count = class_count
+        self.content = content
         self.introduction = introduction
         self.files= json.dumps(files)
         self.update_time = datetime.now()
