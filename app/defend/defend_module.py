@@ -15,6 +15,7 @@ class defend_module:
             db.session.commit()
 
             user_model.send_mail_by_userid(userid, "认证进度通知", "管理员已收到您的认证信息请求,会尽快进行处理!")
+            user_model.send_mail_to_admin('认证审核通知', '认证待审核!')
             return ERROR.success(newissue.to_json())
         return ERROR.REQUEST_INVALID
 

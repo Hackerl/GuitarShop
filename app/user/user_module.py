@@ -43,7 +43,7 @@ class user_module:
                             db.session.commit()
                             chatroom_record_model.create_chatroom_record(newuser.id, 1, new_chatroom.id)
 
-                            new_msg = message_model(new_chatroom.id, 1, "欢迎来到香樟活宝的维权平台,有任何问题都可以询问我", 0)
+                            new_msg = message_model(new_chatroom.id, 1, "欢迎来到云琴行,有任何问题都可以询问我", 0)
                             db.session.add(new_msg)
                         return ERROR.SUCCESS
                     return ERROR.EMAIL_EXIST

@@ -82,6 +82,14 @@ class user_model(model_base, db.Model):
                       recipients=[user.email])
         mail.send(msg)
 
+    @classmethod
+    def send_mail_to_admin(cls, _subject, _body):
+        user = cls.query.filter_by(id=1).first()
+        msg = Message(subject=_subject,
+                      body = _body,
+                      recipients=[user.email])
+        mail.send(msg)
+
     def set_info(self, username, email, phone, realname, wechat):
         self.username = username
         self.email = email

@@ -23,8 +23,9 @@ class teaching_module:
             newclass = class_model(userid, name, type, rank, teaching_type, teaching_address, price, discount, class_count, content, files, introduction)
             db.session.add(newclass)
             db.session.commit()
+            user_model.send_mail_by_userid(userid, '开设课程通知', '开设课程待审核!')
+            user_model.send_mail_to_admin('开课审核通知', '新开课程 %s 待审核!' % name)
 
-            user_model.send_mail_by_userid(userid, "开设课程通知", "成功开设课程!")
             return ERROR.success(newclass.to_json())
         return ERROR.REQUEST_INVALID
 
