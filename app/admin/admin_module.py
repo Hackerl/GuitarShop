@@ -50,7 +50,7 @@ class admin_module:
         if user:
             return ERROR.success(user.to_json(columns = ['id', 'username', 'head', 'phone', 'email',
                                                          'realname', 'teaching_address', 'major', 'introduction',
-                                                         'additional_server', 'level', 'create_time']))
+                                                         'wechat', 'additional_server', 'level', 'create_time']))
         else:
             return ERROR.USER_NOT_FOUND
 

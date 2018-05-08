@@ -13,6 +13,7 @@ class user_model(model_base, db.Model):
     phone = db.Column(db.String(15), nullable=True)
     email = db.Column(db.String(30), nullable=True)
     realname = db.Column(db.String(50), nullable=True)
+    wechat = db.Column(db.String(50), nullable=True)
     head = db.Column(db.String(200), nullable=False, default='/img/user.jpeg')
     level = db.Column(db.Integer, default=1)
     create_time = db.Column(db.DateTime, default=datetime.now)
@@ -81,11 +82,12 @@ class user_model(model_base, db.Model):
                       recipients=[user.email])
         mail.send(msg)
 
-    def set_info(self, username, email, phone, realname):
+    def set_info(self, username, email, phone, realname, wechat):
         self.username = username
         self.email = email
         self.phone = phone
         self.realname = realname
+        self.wechat = wechat
 
     def set_server_info(self, teaching_address, major, introduction, additional_server):
         self.teaching_address = teaching_address

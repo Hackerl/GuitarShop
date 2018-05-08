@@ -57,7 +57,7 @@ class user_module:
         user = user_model.find_by_id(userid)
         return ERROR.success(user.to_json(columns = ['id', 'username', 'head', 'phone', 'email',
                                                      'realname', 'teaching_address', 'major', 'introduction',
-                                                     'additional_server', 'level', 'create_time']))
+                                                     'wechat', 'additional_server', 'level', 'create_time']))
     @staticmethod
     def reset_password(request):
         oldpassword = request.get('oldpassword', '')
@@ -78,12 +78,13 @@ class user_module:
         email = request.get('email', '')
         phone = request.get('phone', '')
         realname = request.get('realname', '')
+        wechat = request.get('wechat', '')
         userid = request.get('userid', -1)
 
         user = user_model.find_by_id(userid)
         if re.match(email_r, email):
             if user.username == newusername or not user_model.user_exist(newusername):
-                user.set_info(newusername, email, phone, realname)
+                user.set_info(newusername, email, phone, realname, wechat)
                 return ERROR.SUCCESS
             else:
                 return ERROR.USER_EXIST
