@@ -19,7 +19,7 @@ class teaching_module:
         files = request.get('files', [])
         introduction = request.get('introduction', '')
 
-        if name and files:
+        if name:
             newclass = class_model(userid, name, type, rank, teaching_type, teaching_address, price, discount, class_count, content, files, introduction)
             db.session.add(newclass)
             db.session.commit()
